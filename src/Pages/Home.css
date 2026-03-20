@@ -1,0 +1,48 @@
+.home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #4B2E2B;
+}
+
+.home h1{
+    text-align: center;
+    margin: 0;
+    margin-bottom: 1rem;
+    font-size: 5rem;
+    font-family: 'McLaren',sans-serif;
+}
+
+.home .buttons{
+    display: flex;
+    gap: 10px;
+}
+
+#login, #sign-up{
+    height: 3rem;
+    width: 6rem;
+    border: 0;
+    padding: 0 16px;
+    border-radius: 999px;
+    font-size: 1rem;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#login{
+    background-color: #8C5A3C;
+}
+
+#login:hover{
+    background-color: #b5754e;
+}
+
+#sign-up{
+    background-color: #C08552;
+}
+
+#sign-up:hover{
+    background-color: #e0a774;
+}
