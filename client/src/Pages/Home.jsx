@@ -11,7 +11,7 @@ function Home() {
           <button id="login">Login</button>
         </Link>
         <Link to="/signup">
-          <button id="sign-up" onClick={testPost}>
+          <button id="sign-up">
             Sign Up
           </button>
         </Link>
