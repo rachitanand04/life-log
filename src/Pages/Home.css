@@ -36,7 +36,7 @@
 }
 
 #login:hover{
-    background-color: #b5754e;
+    opacity: 0.9;
 }
 
 #sign-up{
@@ -44,5 +44,5 @@
 }
 
 #sign-up:hover{
-    background-color: #e0a774;
+    opacity: 0.9;
 }
