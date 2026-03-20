@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 
@@ -10,7 +11,9 @@ function Home() {
           <button id="login">Login</button>
         </Link>
         <Link to="/signup">
-          <button id="sign-up">Sign Up</button>
+          <button id="sign-up" onClick={testPost}>
+            Sign Up
+          </button>
         </Link>
       </div>
     </div>
