@@ -1,9 +1,9 @@
-import "./Login.css";
-import LoginForm from "../Components/LoginForm";
+import "./SignUp.css";
+import SignupForm from "../Components/SignUpForm";
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-function Login() {
+function SignUp() {
   return (
     <div>
       <Link to="/">
@@ -11,11 +11,12 @@ function Login() {
           <FaHome className="home-icon" />
         </button>
       </Link>
-      <div className="login">
-        <LoginForm />
+
+      <div className="signup">
+        <SignupForm />
       </div>
     </div>
   );
 }
 
-export default Login;
+export default SignUp;

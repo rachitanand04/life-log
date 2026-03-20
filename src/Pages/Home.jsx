@@ -9,7 +9,9 @@ function Home() {
         <Link to="/login">
           <button id="login">Login</button>
         </Link>
-        <button id="sign-up">Sign Up</button>
+        <Link to="/signup">
+          <button id="sign-up">Sign Up</button>
+        </Link>
       </div>
     </div>
   );
