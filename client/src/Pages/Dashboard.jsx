@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Dashboard.css";
+import Navbar from "../Components/Dashboard/Navbar";
+import Log from "../Components/Dashboard/Log";
+import Tasks from "../Components/Dashboard/Tasks";
+import Events from "../Components/Dashboard/Events";
+import entries from "./entry-test";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -33,10 +39,15 @@ function Dashboard() {
   }
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      {user && <p>Welcome {user.email}</p>}
-      <button onClick={handleLogout}>Logout</button>
+    <div className="dashboard">
+      <Navbar user={user} logout={handleLogout} />
+      <div className="dashboard-grid">
+        <Log entries={entries}/>
+        <div className="task-events">
+          <Tasks entries={entries}/>
+          <Events entries={entries}/>
+        </div>
+      </div>
     </div>
   );
 }

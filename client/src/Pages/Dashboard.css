@@ -1,0 +1,165 @@
+.title h1 {
+  font-family: "McLaren";
+  color: white;
+}
+
+.title p {
+  color: white;
+  font-family: "Montserrat";
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4b2e2b;
+}
+
+.navbar button {
+  height: 3rem;
+  width: 6rem;
+  border: 0;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: 1rem;
+  background-color: #8c5a3c;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+.navbar button:hover {
+  opacity: 0.9;
+}
+
+.navbar * {
+  margin: 0.5rem 1rem;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  background-color: #4b2e2b ;
+  min-height: 100vh;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 3fr 1.5fr;
+  gap:2px;
+  flex: 1;
+}
+
+.dashboard .log {
+  background-color: #c08552;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.log-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  margin-top: 0.5rem;
+  background-color: #8c5a3c;
+  width: 90%;
+  height: 3rem;
+  border: 0;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: 1.2rem;
+  color: white;
+  font-family: "McLaren", sans-serif;
+}
+
+.log-entry-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.log-entry-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.entry-edit {
+  background-color: #4b2e2b;
+}
+
+.entry-delete{
+    background-color: #AA4344;
+}
+
+.log-entry button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  border: 0;
+  font-size: 1rem;
+  color: white;
+}
+
+.log-entry button:hover{
+    opacity: 0.8;
+}
+
+.task-events{
+    display: flex;
+    gap: 2px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tasks,.events{
+    background-color: #C88256;
+    height: 50%;
+    width: 100%;
+}
+
+.tasks h2,.events h2{
+    font-family: 'Montserrat';
+    color: white;
+    text-align: center;
+}
+
+.task-list,.event-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.task-entry,.event-entry{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  margin-top: 0.5rem;
+  background-color: #623F2A;
+  width: 90%;
+  height: 3rem;
+  border: 0;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: 1.2rem;
+  color: white;
+  font-family: "McLaren", sans-serif;
+}
+
+.task-entry .checkbox,.event-entry .checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: 0;
+    border: 0;
+    padding: 0;
+    font-size: 1.5rem;
+}
