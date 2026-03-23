@@ -18,6 +18,10 @@ function Input(props) {
   function handleSubmit(event){
     event.preventDefault();
     props.addEntry(newLog);
+    setNewLog({
+        content:"",
+        type:"note"
+    })
   }
 
   return (
