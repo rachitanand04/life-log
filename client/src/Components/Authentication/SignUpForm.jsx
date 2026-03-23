@@ -31,20 +31,25 @@ function SignupForm() {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include", // IMPORTANT for session
+      credentials: "include",
       body: JSON.stringify({
         username: formData.username,
         password: formData.password,
       }),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        // backend already logs user in after register
+      .then(async (res) => {
+        const data = await res.json();
+
+        if (!res.ok) {
+          alert(data.message);
+          navigate("/login");
+          return;
+        }
+
         navigate("/dashboard");
       })
       .catch((err) => console.log(err));
   }
-
   return (
     <div>
       <div className="signup-form">
