@@ -9,10 +9,10 @@ import bcrypt from "bcrypt";
 const saltRounds = 10;
 
 const app = express();
-const PORT = 5000;
+const PORT = 3000;
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "http://localhost:5173",
   credentials: true
 }));
 app.use(express.json());
@@ -84,7 +84,7 @@ app.post("/register", async (req, res) => {
         if (err) {
           console.error("Error hashing password:", err);
         } else {
-          console.log("Hashed Password:", hash);
+          // console.log("Hashed Password:", hash);
           const result = await db.query(
             "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
             [email, hash],
