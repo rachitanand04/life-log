@@ -1,5 +1,5 @@
 import "./SignUp.css";
-import SignupForm from "../Components/SignUpForm";
+import SignupForm from "../../Components/Authentication/SignUpForm";
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 import "./Login.css";
-import LoginForm from "../Components/LoginForm";
+import LoginForm from "../../Components/Authentication/LoginForm";
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
