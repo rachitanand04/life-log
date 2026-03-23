@@ -21,10 +21,22 @@ function Dashboard() {
       .catch((err) => console.log(err));
   }, []);
 
+  function handleLogout() {
+    fetch("http://localhost:3000/logout", {
+      method: "POST",
+      credentials: "include",
+    })
+      .then(() => {
+        navigate("/login"); // or "/"
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <div>
       <h1>Dashboard</h1>
       {user && <p>Welcome {user.email}</p>}
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }
