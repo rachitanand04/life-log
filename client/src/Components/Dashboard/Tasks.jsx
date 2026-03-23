@@ -1,4 +1,5 @@
 import TaskEntry from "./TaskEntry";
+import { v4 as uuidv4 } from 'uuid';
 
 function Tasks(props) {
   return (
@@ -8,7 +9,7 @@ function Tasks(props) {
         {props.entries
           .filter((entry) => entry.type === "task")
           .map((entry) => (
-            <TaskEntry key={entry.id} content={entry.content} />
+            <TaskEntry key={uuidv4()} content={entry.content} />
           ))}
       </div>
     </div>

@@ -1,4 +1,5 @@
 import EventEntry from "./EventEntry";
+import { v4 as uuidv4 } from 'uuid';
 
 function Events(props) {
   return (
@@ -8,7 +9,7 @@ function Events(props) {
         {props.entries
           .filter((entry) => entry.type === "event")
           .map((entry) => (
-            <EventEntry key={entry.id} content={entry.content} />
+            <EventEntry key={uuidv4()} content={entry.content} />
           ))}
       </div>
     </div>

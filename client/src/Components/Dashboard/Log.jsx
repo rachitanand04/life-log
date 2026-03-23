@@ -1,19 +1,14 @@
 import LogEntry from "./LogEntry";
+import { v4 as uuidv4 } from 'uuid';
 
 function Log(props) {
   return (
-    <div className="log">
-      <div className="log-list">
-        {props.entries.map(function (entry) {
-          return (
-            <LogEntry
-              key={entry.id}
-              type={entry.type}
-              content={entry.content}
-            />
-          );
-        })}
-      </div>
+    <div className="log-list">
+      {props.entries.map(function (entry) {
+        return (
+          <LogEntry key={uuidv4()} type={entry.type} content={entry.content} />
+        );
+      })}
     </div>
   );
 }
