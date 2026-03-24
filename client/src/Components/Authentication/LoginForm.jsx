@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../API/auth";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -20,24 +21,14 @@ function LoginForm() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include", // VERY IMPORTANT
-      body: JSON.stringify(formData),
-    })
-      .then((res) => {
-        if (res.ok) {
-          navigate("/dashboard"); // login success
-        } else {
-          alert("Invalid credentials");
-        }
+    login(formData)
+      .then(() => {
+        navigate("/dashboard");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert(err.message);
+      });
   }
-
   return (
     <div className="login-form">
       <h1>Login</h1>

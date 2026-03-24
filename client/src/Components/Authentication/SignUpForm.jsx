@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { register } from "../../API/auth";
 
 function SignupForm() {
   const [formData, setFormData] = useState({
@@ -25,30 +26,14 @@ function SignupForm() {
       alert("Passwords do not match");
       return;
     }
-
-    fetch("http://localhost:3000/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        username: formData.username,
-        password: formData.password,
-      }),
-    })
-      .then(async (res) => {
-        const data = await res.json();
-
-        if (!res.ok) {
-          alert(data.message);
-          navigate("/login");
-          return;
-        }
-
+    register(formData)
+      .then(() => {
         navigate("/dashboard");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert(err);
+        navigate("/login");
+      });
   }
   return (
     <div>
