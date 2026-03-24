@@ -7,7 +7,7 @@ function Tasks(props) {
       <h2>Tasks</h2>
       <div className="task-list">
         {props.entries
-          .filter((entry) => entry.type === "task")
+          .filter((entry) => entry.type === "task" && entry.status === "pending")
           .map((entry) => (
             <TaskEntry key={entry.id} content={entry.content} />
           ))}

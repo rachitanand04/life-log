@@ -222,3 +222,13 @@
 .input form button:hover{
     opacity: 0.9;
 }
+
+.date-picker{
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.datePicker{
+  background-color: #aa4344;
+}

@@ -16,16 +16,25 @@ function Input(props) {
   }
 
   function handleSubmit(event) {
-    if (newLog.content) {
-      props.addEntry(newLog);
-      setNewLog({
-        content: "",
-        type: "note",
-      });
-    }else{
-      alert("Log cannot be blank");
-    }
     event.preventDefault();
+
+    if (!newLog.content) {
+      alert("Log cannot be blank");
+      return;
+    }
+
+    let finalLog = { ...newLog };
+
+    if (newLog.type === "task" || newLog.type === "event") {
+      finalLog.status = "pending";
+    }
+
+    props.addEntry(finalLog);
+
+    setNewLog({
+      content: "",
+      type: "note",
+    });
   }
 
   return (

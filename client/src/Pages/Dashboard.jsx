@@ -6,6 +6,7 @@ import Log from "../Components/Dashboard/Log";
 import Tasks from "../Components/Dashboard/Tasks";
 import Events from "../Components/Dashboard/Events";
 import Input from "../Components/Dashboard/Input";
+import DateSelector from "../Components/Dashboard/DateSelector";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -98,6 +99,7 @@ function Dashboard() {
       <div className="dashboard-grid">
         <div className="log">
           <Input addEntry={addEntry} />
+          {/* <DateSelector /> */}
           <Log entries={logs} delete={deleteEntry} />
         </div>
         <div className="task-events">
