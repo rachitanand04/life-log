@@ -6,7 +6,6 @@ import Log from "../Components/Dashboard/Log";
 import Tasks from "../Components/Dashboard/Tasks";
 import Events from "../Components/Dashboard/Events";
 import Input from "../Components/Dashboard/Input";
-// import entries from "./entry-test";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -25,13 +24,13 @@ function Dashboard() {
       })
       .then((data) => {
         setUser(data.user);
-      })
-      
-      fetch("http://localhost:3000/logs",{
-        credentials: "include",
-      })
-      .then((res)=>res.json())
-      .then((data)=>{
+      });
+
+    fetch("http://localhost:3000/logs", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
         setLogs(data);
         console.log(logs);
       })
@@ -49,31 +48,49 @@ function Dashboard() {
       .catch((err) => console.log(err));
   }
 
-async function addEntry(newEntry) {
-  try {
-    const res = await fetch("http://localhost:3000/logs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(newEntry),
-    });
+  async function addEntry(newEntry) {
+    try {
+      const res = await fetch("http://localhost:3000/logs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(newEntry),
+      });
 
-    if (!res.ok) {
+      if (!res.ok) {
+        const data = await res.json();
+        alert(data.message || "Error adding logs");
+        return;
+      }
+
       const data = await res.json();
-      alert(data.message || "Error adding logs");
-      return;
+
+      setLogs((prev) => [data, ...prev]);
+    } catch (err) {
+      console.log(err);
     }
-
-    const data = await res.json();
-
-    setLogs(prev => [data, ...prev]);
-
-  } catch (err) {
-    console.log(err);
   }
-}
+
+  async function deleteEntry(id) {
+    try {
+      const res = await fetch(`http://localhost:3000/logs/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        alert(data.message || "Error deleting log");
+        return;
+      }
+
+      setLogs((prev) => prev.filter((log) => log.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="dashboard">
@@ -81,7 +98,7 @@ async function addEntry(newEntry) {
       <div className="dashboard-grid">
         <div className="log">
           <Input addEntry={addEntry} />
-          <Log entries={logs} />
+          <Log entries={logs} delete={deleteEntry} />
         </div>
         <div className="task-events">
           <Tasks entries={logs} />

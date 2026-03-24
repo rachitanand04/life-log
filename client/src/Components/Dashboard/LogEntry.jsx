@@ -20,7 +20,12 @@ function LogEntry(props) {
         <button className="entry-edit">
           <MdEdit />
         </button>
-        <button className="entry-delete">
+        <button
+          className="entry-delete"
+          onClick={() => {
+            props.delete(props.id);
+          }}
+        >
           <MdDelete />
         </button>
       </div>

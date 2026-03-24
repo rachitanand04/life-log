@@ -11,10 +11,12 @@ const saltRounds = 10;
 const app = express();
 const PORT = 3000;
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 app.use(express.json());
 env.config();
 
@@ -43,21 +45,22 @@ const db = new pg.Client({
 db.connect();
 
 app.get("/dashboard", isAuthenticated, (req, res) => {
-  res.json({user: req.user });
+  res.json({ user: req.user });
 });
 
-app.get("/logs", isAuthenticated, async(req,res)=>{
+app.get("/logs", isAuthenticated, async (req, res) => {
   const username = req.user.email;
-  try{
+  try {
     const result = await db.query(
-      "SELECT * FROM logs WHERE email = $1 ORDER BY time_created DESC",[username]
-    )
+      "SELECT * FROM logs WHERE email = $1 ORDER BY time_created DESC",
+      [username],
+    );
     res.json(result.rows);
-  }catch(err){
+  } catch (err) {
     console.log(err);
-    res.status(500).json({message: "Error Fetching Logs"})
+    res.status(500).json({ message: "Error Fetching Logs" });
   }
-})
+});
 
 app.post("/logs", isAuthenticated, async (req, res) => {
   const email = req.user.email;
@@ -68,17 +71,36 @@ app.post("/logs", isAuthenticated, async (req, res) => {
       `INSERT INTO logs (email, type, content, due_date, scheduled_time, status)
        VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING *`,
-      [email, type, content, due_date, scheduled_time, status]
+      [email, type, content, due_date, scheduled_time, status],
     );
 
     res.status(201).json(result.rows[0]);
-
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Error Adding Log" });
   }
 });
 
+app.delete("/logs/:id", isAuthenticated, async (req, res) => {
+  const email = req.user.email;
+  const { id } = req.params;
+
+  try {
+    const result = await db.query(
+      "DELETE FROM logs WHERE id = $1 AND email = $2 RETURNING *",
+      [id, email],
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "Log not found" });
+    }
+
+    res.json({ message: "Deleted successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error deleting log" });
+  }
+});
 
 // Authentication
 app.get("/me", (req, res) => {
@@ -88,13 +110,9 @@ app.get("/me", (req, res) => {
   res.status(401).json({ user: null });
 });
 
-app.post(
-  "/login",
-  passport.authenticate("local"),
-  (req, res) => {
-    res.json({ message: "Logged in", user: req.user });
-  }
-);
+app.post("/login", passport.authenticate("local"), (req, res) => {
+  res.json({ message: "Logged in", user: req.user });
+});
 
 app.post("/logout", (req, res) => {
   req.logout(() => {
@@ -125,7 +143,7 @@ app.post("/register", async (req, res) => {
             [email, hash],
           );
           const user = result.rows[0];
-          req.logIn(user, (err)=>{
+          req.logIn(user, (err) => {
             console.log(err);
             res.json({ message: "Registered", user });
           });
