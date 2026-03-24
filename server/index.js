@@ -59,6 +59,26 @@ app.get("/logs", isAuthenticated, async(req,res)=>{
   }
 })
 
+app.post("/logs", isAuthenticated, async (req, res) => {
+  const email = req.user.email;
+  const { type, content, due_date, scheduled_time, status } = req.body;
+
+  try {
+    const result = await db.query(
+      `INSERT INTO logs (email, type, content, due_date, scheduled_time, status)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING *`,
+      [email, type, content, due_date, scheduled_time, status]
+    );
+
+    res.status(201).json(result.rows[0]);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error Adding Log" });
+  }
+});
+
 
 // Authentication
 app.get("/me", (req, res) => {

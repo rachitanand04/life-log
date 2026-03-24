@@ -49,11 +49,31 @@ function Dashboard() {
       .catch((err) => console.log(err));
   }
 
-  function addEntry(newEntry){
-    setLogs((prev)=>{
-      return [...prev,newEntry]
-    })
+async function addEntry(newEntry) {
+  try {
+    const res = await fetch("http://localhost:3000/logs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(newEntry),
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+      alert(data.message || "Error adding logs");
+      return;
+    }
+
+    const data = await res.json();
+
+    setLogs(prev => [data, ...prev]);
+
+  } catch (err) {
+    console.log(err);
   }
+}
 
   return (
     <div className="dashboard">
