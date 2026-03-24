@@ -6,11 +6,11 @@ import Log from "../Components/Dashboard/Log";
 import Tasks from "../Components/Dashboard/Tasks";
 import Events from "../Components/Dashboard/Events";
 import Input from "../Components/Dashboard/Input";
-import entries from "./entry-test";
+// import entries from "./entry-test";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
-  const [logs, setLogs] = useState(entries);
+  const [logs, setLogs] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,6 +25,15 @@ function Dashboard() {
       })
       .then((data) => {
         setUser(data.user);
+      })
+      
+      fetch("http://localhost:3000/logs",{
+        credentials: "include",
+      })
+      .then((res)=>res.json())
+      .then((data)=>{
+        setLogs(data);
+        console.log(logs);
       })
       .catch((err) => console.log(err));
   }, []);

@@ -9,7 +9,7 @@ function Events(props) {
         {props.entries
           .filter((entry) => entry.type === "event")
           .map((entry) => (
-            <EventEntry key={uuidv4()} content={entry.content} />
+            <EventEntry key={entry.id} content={entry.content} />
           ))}
       </div>
     </div>

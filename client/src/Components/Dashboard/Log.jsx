@@ -6,7 +6,7 @@ function Log(props) {
     <div className="log-list">
       {props.entries.map(function (entry) {
         return (
-          <LogEntry key={uuidv4()} type={entry.type} content={entry.content} />
+          <LogEntry key={entry.id} type={entry.type} content={entry.content} />
         );
       })}
     </div>

@@ -9,7 +9,7 @@ function Tasks(props) {
         {props.entries
           .filter((entry) => entry.type === "task")
           .map((entry) => (
-            <TaskEntry key={uuidv4()} content={entry.content} />
+            <TaskEntry key={entry.id} content={entry.content} />
           ))}
       </div>
     </div>

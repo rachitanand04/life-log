@@ -43,9 +43,24 @@ const db = new pg.Client({
 db.connect();
 
 app.get("/dashboard", isAuthenticated, (req, res) => {
-  res.json({ message: "Welcome", user: req.user });
+  res.json({user: req.user });
 });
 
+app.get("/logs", isAuthenticated, async(req,res)=>{
+  const username = req.user.email;
+  try{
+    const result = await db.query(
+      "SELECT * FROM logs WHERE email = $1 ORDER BY time_created DESC",[username]
+    )
+    res.json(result.rows);
+  }catch(err){
+    console.log(err);
+    res.status(500).json({message: "Error Fetching Logs"})
+  }
+})
+
+
+// Authentication
 app.get("/me", (req, res) => {
   if (req.isAuthenticated()) {
     return res.json({ user: req.user });
@@ -108,8 +123,6 @@ function isAuthenticated(req, res, next) {
   }
   res.status(401).json({ message: "Unauthorized" });
 }
-
-
 
 passport.use(
   new Strategy(async function verify(username, password, cb) {
