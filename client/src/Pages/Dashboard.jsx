@@ -7,6 +7,13 @@ import Tasks from "../Components/Dashboard/Tasks";
 import Events from "../Components/Dashboard/Events";
 import Input from "../Components/Dashboard/Input";
 import DateSelector from "../Components/Dashboard/DateSelector";
+import {
+  dashboard,
+  logsFetch,
+  addEntryCall,
+  deleteEntryCall,
+} from "../API/dashboard";
+import { logout } from "../API/auth";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -14,83 +21,43 @@ function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/dashboard", {
-      credentials: "include",
-    })
-      .then((res) => {
-        if (res.status === 401) {
-          navigate("/login"); // not logged in → go back
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setUser(data.user);
-      });
+    dashboard().then((data) => {
+      setUser(data.user);
+    });
 
-    fetch("http://localhost:3000/logs", {
-      credentials: "include",
-    })
-      .then((res) => res.json())
+    logsFetch()
       .then((data) => {
         setLogs(data);
-        console.log(logs);
       })
       .catch((err) => console.log(err));
   }, []);
 
   function handleLogout() {
-    fetch("http://localhost:3000/logout", {
-      method: "POST",
-      credentials: "include",
-    })
+    logout()
       .then(() => {
-        navigate("/login"); // or "/"
+        navigate("/login");
       })
       .catch((err) => console.log(err));
   }
 
-  async function addEntry(newEntry) {
-    try {
-      const res = await fetch("http://localhost:3000/logs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(newEntry),
+  function addEntry(newEntry) {
+    addEntryCall(newEntry)
+      .then((data) => {
+        setLogs((prev) => [data, ...prev]);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-
-      if (!res.ok) {
-        const data = await res.json();
-        alert(data.message || "Error adding logs");
-        return;
-      }
-
-      const data = await res.json();
-
-      setLogs((prev) => [data, ...prev]);
-    } catch (err) {
-      console.log(err);
-    }
   }
 
   async function deleteEntry(id) {
-    try {
-      const res = await fetch(`http://localhost:3000/logs/${id}`, {
-        method: "DELETE",
-        credentials: "include",
+    deleteEntryCall(id)
+      .then(() => {
+        setLogs((prev) => prev.filter((log) => log.id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
       });
-
-      if (!res.ok) {
-        const data = await res.json();
-        alert(data.message || "Error deleting log");
-        return;
-      }
-
-      setLogs((prev) => prev.filter((log) => log.id !== id));
-    } catch (err) {
-      console.log(err);
-    }
   }
 
   return (
