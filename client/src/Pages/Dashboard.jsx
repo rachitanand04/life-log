@@ -86,7 +86,7 @@ function Dashboard() {
         </div>
         <div className="task-events">
           <Tasks entries={logs} onStatusChangeEntry={addEntry} statusChange={changeStatus}/>
-          <Events entries={logs} />
+          <Events entries={logs} onStatusChangeEntry={addEntry} statusChange={changeStatus}/>
         </div>
       </div>
     </div>

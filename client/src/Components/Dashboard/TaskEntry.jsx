@@ -7,6 +7,7 @@ function TaskEntry(props){
     function ToggleCheckbox(event){
         toggleDone(!isDone);
         markComplete();
+        event.preventDefault();
     }
 
     function markComplete(){
