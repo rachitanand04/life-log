@@ -6,7 +6,15 @@ function TaskEntry(props){
     
     function ToggleCheckbox(event){
         toggleDone(!isDone);
-        event.preventDefault();
+        markComplete();
+    }
+
+    function markComplete(){
+        const statusChange = {
+            type: "complete",
+            content: `Task (${props.content}) marked as complete`
+        }
+        props.complete(statusChange,props.id);
     }
     return(
         <div className="task-entry">

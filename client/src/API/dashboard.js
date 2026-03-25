@@ -8,14 +8,14 @@ export async function dashboard() {
 }
 
 export async function logsFetch() {
-  const res = await fetch("http://localhost:3000/logs", {
+  const res = await fetch(`${baseURL}/logs`, {
     credentials: "include",
   });
   return await res.json();
 }
 
 export async function addEntryCall(newEntry) {
-  const res = await fetch("http://localhost:3000/logs", {
+  const res = await fetch(`${baseURL}/logs`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export async function addEntryCall(newEntry) {
 }
 
 export async function deleteEntryCall(id) {
-  const res = await fetch(`http://localhost:3000/logs/${id}`, {
+  const res = await fetch(`${baseURL}/logs/${id}`, {
     method: "DELETE",
     credentials: "include",
   });
@@ -42,5 +42,21 @@ export async function deleteEntryCall(id) {
   if (!res.ok) {
     const data = await res.json();
     throw new Error(data.message || "Error deleting log");
+  }
+}
+
+export async function updateStatus(id, newStatus) {
+  const res = await fetch(`${baseURL}/status/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(newStatus),
+  });
+
+  if (!res.ok) {
+    const data = await res.json();
+    throw new Error(data.message || "Error updating log");
   }
 }

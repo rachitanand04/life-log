@@ -2,6 +2,7 @@ import { MdEvent, MdOutlineTaskAlt } from "react-icons/md";
 import { FaRegStickyNote } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import { MdDoneAll } from "react-icons/md";
 
 function LogEntry(props) {
   return (
@@ -11,15 +12,19 @@ function LogEntry(props) {
           <FaRegStickyNote />
         ) : props.type === "event" ? (
           <MdEvent />
-        ) : (
+        ) : props.type === "task" ? (
           <MdOutlineTaskAlt />
+        ) : (
+          <MdDoneAll />
         )}
         <p>{props.content}</p>
       </div>
       <div className="log-entry-right">
-        <button className="entry-edit">
-          <MdEdit />
-        </button>
+        {props.type !== "complete" && (
+          <button className="entry-edit">
+            <MdEdit />
+          </button>
+        )}
         <button
           className="entry-delete"
           onClick={() => {

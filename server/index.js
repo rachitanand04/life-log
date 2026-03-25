@@ -102,6 +102,25 @@ app.delete("/logs/:id", isAuthenticated, async (req, res) => {
   }
 });
 
+app.patch("/status/:id", isAuthenticated, async (req, res) => {
+  const { id } = req.params;
+  const newStatus = req.body.status;
+  try {
+    const result = await db.query(
+      "UPDATE logs SET status = $1 WHERE id = $2 RETURNING *",
+      [newStatus, id],
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "Log not found" });
+    }
+
+    res.json({ message: "Updated Successfuly" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error updating log" });
+  }
+});
+
 // Authentication
 app.get("/me", (req, res) => {
   if (req.isAuthenticated()) {

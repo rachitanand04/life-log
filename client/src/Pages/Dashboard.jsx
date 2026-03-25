@@ -12,6 +12,7 @@ import {
   logsFetch,
   addEntryCall,
   deleteEntryCall,
+  updateStatus,
 } from "../API/dashboard";
 import { logout } from "../API/auth";
 
@@ -60,6 +61,20 @@ function Dashboard() {
       });
   }
 
+  async function changeStatus(id, newStatus) {
+    updateStatus(id, { status: newStatus })
+      .then(() => {
+        setLogs((prev) =>
+          prev.map((log) =>
+            log.id === id ? { ...log, status: newStatus } : log,
+          ),
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <div className="dashboard">
       <Navbar user={user} logout={handleLogout} />
@@ -70,7 +85,7 @@ function Dashboard() {
           <Log entries={logs} delete={deleteEntry} />
         </div>
         <div className="task-events">
-          <Tasks entries={logs} />
+          <Tasks entries={logs} onStatusChangeEntry={addEntry} statusChange={changeStatus}/>
           <Events entries={logs} />
         </div>
       </div>
