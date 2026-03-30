@@ -3,6 +3,7 @@ import { FaRegStickyNote } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
+import timeAgo from "./TimeAgo";
 
 function LogEntry(props) {
   return (
@@ -18,6 +19,7 @@ function LogEntry(props) {
           <MdDoneAll />
         )}
         <p>{props.content}</p>
+        <p className="time-ago">({timeAgo(props.created)})</p>
       </div>
       <div className="log-entry-right">
         {props.type !== "complete" && (

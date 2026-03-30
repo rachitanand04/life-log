@@ -232,3 +232,8 @@
 .datePicker{
   background-color: #aa4344;
 }
+
+.time-ago{
+  font-size: 0.7rem;
+  color:white;
+}

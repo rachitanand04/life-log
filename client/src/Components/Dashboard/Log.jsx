@@ -9,7 +9,7 @@ function Log(props) {
     <div className="log-list">
       {props.entries.map(function (entry) {
         return (
-          <LogEntry key={entry.id} id={entry.id} type={entry.type} content={entry.content} delete={deleteEntry}/>
+          <LogEntry key={entry.id} id={entry.id} type={entry.type} content={entry.content} created={entry.time_created} delete={deleteEntry}/>
         );
       })}
     </div>
