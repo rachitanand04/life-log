@@ -1,22 +1,18 @@
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
+import { me } from "../API/auth"
 
 function Home() {
   const navigate = useNavigate();
 
   function handleLoginClick() {
-    fetch("http://localhost:3000/me", {
-      credentials: "include",
+    me()
+    .then(()=>{
+      navigate("/dashboard");
     })
-      .then((res) => {
-        console.log(res.status)
-        if (res.status === 401) {
-          navigate("/login"); // not logged in
-        } else {
-          navigate("/dashboard"); // already logged in
-        }
-      })
-      .catch(() => navigate("/login"));
+    .catch(()=>{
+      navigate("/login");
+    })
   }
 
   function handleSignupClick() {
