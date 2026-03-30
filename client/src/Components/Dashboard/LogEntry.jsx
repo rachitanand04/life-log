@@ -3,7 +3,7 @@ import { FaRegStickyNote } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { MdDoneAll } from "react-icons/md";
-import timeAgo from "./TimeAgo";
+import { timeAgo } from "../../utils/time";
 
 function LogEntry(props) {
   return (

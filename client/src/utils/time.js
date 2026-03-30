@@ -1,4 +1,4 @@
-function timeAgo(timestamp) {
+export function timeAgo(timestamp) {
   const now = new Date();
   const past = new Date(timestamp.replace(" ", "T")); // fix parsing
 
@@ -31,5 +31,3 @@ function timeAgo(timestamp) {
   if (years === 1) return "1 year ago";
   return `${years} years ago`;
 }
-
-export default timeAgo;
