@@ -6,6 +6,9 @@ import { MdDoneAll } from "react-icons/md";
 import { timeAgo } from "../../utils/time";
 
 function LogEntry(props) {
+  function startEdit() {
+    props.edit(props.id);
+  }
   return (
     <div className="log-entry">
       <div className="log-entry-left">
@@ -23,7 +26,7 @@ function LogEntry(props) {
       </div>
       <div className="log-entry-right">
         {props.type !== "complete" && (
-          <button className="entry-edit">
+          <button className="entry-edit" onClick={startEdit}>
             <MdEdit />
           </button>
         )}

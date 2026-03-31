@@ -20,6 +20,7 @@ import { logout } from "../API/auth";
 function Dashboard() {
   const [user, setUser] = useState(null);
   const [logs, setLogs] = useState([]);
+  const [isEditing, setEditing] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -76,6 +77,11 @@ function Dashboard() {
       });
   }
 
+  async function updateEntry(id){
+    console.log("here");
+    setEditing(true);
+  }
+
   return (
     <div className="dashboard">
       <Navbar user={user} logout={handleLogout} />
@@ -83,14 +89,14 @@ function Dashboard() {
         <div className="log">
           <Input addEntry={addEntry} />
           {/* <DateSelector /> */}
-          <Log entries={logs} delete={deleteEntry} />
+          <Log entries={logs} delete={deleteEntry} edit={updateEntry}/>
         </div>
         <div className="task-events">
           <Tasks entries={logs} onStatusChangeEntry={addEntry} statusChange={changeStatus}/>
           <Events entries={logs} onStatusChangeEntry={addEntry} statusChange={changeStatus}/>
         </div>
       </div>
-      {/* <EditModal /> */}
+      {isEditing && <EditModal />}
     </div>
   );
 }
