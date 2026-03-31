@@ -7,6 +7,7 @@ import Tasks from "../Components/Dashboard/Tasks";
 import Events from "../Components/Dashboard/Events";
 import Input from "../Components/Dashboard/Input";
 import DateSelector from "../Components/Dashboard/DateSelector";
+import EditModal from "../Components/Dashboard/EditModal";
 import {
   dashboard,
   logsFetch,
@@ -89,6 +90,7 @@ function Dashboard() {
           <Events entries={logs} onStatusChangeEntry={addEntry} statusChange={changeStatus}/>
         </div>
       </div>
+      {/* <EditModal /> */}
     </div>
   );
 }

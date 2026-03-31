@@ -7,7 +7,7 @@ function DateSelector(){
     const [startdate, setStartDate] = useState(new Date());
     return(
         <div className="date-picker">
-            <DatePicker selected={startdate} onChange={(date) => setStartDate(date)} />
+            <DatePicker selected={startdate} onChange={(date) => setStartDate(date)} className="custom-datepicker-input"/>
         </div>
     )
 }

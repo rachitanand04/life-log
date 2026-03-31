@@ -59,6 +59,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-height: 79vh;
+  overflow: scroll;
 }
 
 .log-entry {
@@ -219,21 +221,79 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.input form button:hover{
-    opacity: 0.9;
+.input form button:hover {
+  opacity: 0.9;
 }
 
-.date-picker{
+.date-picker {
   display: flex;
   justify-content: center;
   margin-top: 0.5rem;
 }
 
-.datePicker{
+.datePicker {
   background-color: #aa4344;
 }
 
-.time-ago{
+.time-ago {
   font-size: 0.7rem;
-  color:white;
+  color: white;
+}
+
+.edit-modal {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.edit-window {
+  justify-content: center;
+  background-color: #c08552;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.edit-window form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem
+}
+
+.edit-window form input {
+  width: 30rem;
+  height: 2rem;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  border: 0;
+}
+
+.custom-datepicker-input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #4b2e2b;
+  color: white;
+  outline: none;
+  text-align: center;
+}
+
+.edit-button {
+  width: 4rem;
+  height: 2rem;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  border: 0;
+  background-color: #8c5a3c;
+  color: white;
 }
