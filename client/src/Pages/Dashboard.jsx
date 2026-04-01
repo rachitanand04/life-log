@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
+import "react-datepicker/dist/react-datepicker.css";
 import Navbar from "../Components/Dashboard/Navbar";
 import Log from "../Components/Dashboard/Log";
 import Tasks from "../Components/Dashboard/Tasks";
 import Events from "../Components/Dashboard/Events";
 import Input from "../Components/Dashboard/Input";
-import DateSelector from "../Components/Dashboard/DateSelector";
 import EditModal from "../Components/Dashboard/EditModal";
 import {
   dashboard,
@@ -21,6 +21,7 @@ function Dashboard() {
   const [user, setUser] = useState(null);
   const [logs, setLogs] = useState([]);
   const [isEditing, setEditing] = useState(false);
+  const [editEntry, setEditEntry] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,9 +78,12 @@ function Dashboard() {
       });
   }
 
-  async function updateEntry(id){
-    console.log("here");
+  async function openModal(id){
+    const entry = logs.find((log)=>{
+      return log.id === id;
+    })
     setEditing(true);
+    setEditEntry(entry);
   }
 
   return (
@@ -89,14 +93,14 @@ function Dashboard() {
         <div className="log">
           <Input addEntry={addEntry} />
           {/* <DateSelector /> */}
-          <Log entries={logs} delete={deleteEntry} edit={updateEntry}/>
+          <Log entries={logs} delete={deleteEntry} edit={openModal}/>
         </div>
         <div className="task-events">
           <Tasks entries={logs} onStatusChangeEntry={addEntry} statusChange={changeStatus}/>
           <Events entries={logs} onStatusChangeEntry={addEntry} statusChange={changeStatus}/>
         </div>
       </div>
-      {isEditing && <EditModal />}
+      {isEditing && <EditModal entry={editEntry}/>}
     </div>
   );
 }
