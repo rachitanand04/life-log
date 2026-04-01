@@ -2,7 +2,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 
 function EditModal(props) {
-  const { id, content, type } = props.entry;
+  const { id, content, type, status } = props.entry;
   const [newContent, setNewContent] = useState(content);
   const [startdate, setStartDate] = useState(new Date());
 
@@ -22,7 +22,7 @@ function EditModal(props) {
             value={newContent}
             onChange={updateContent}
           />
-          {type !== "note" && (
+          {type !== "note" && status !== "complete" && (
             <DatePicker
               selected={startdate}
               onChange={(date) => setStartDate(date)}
