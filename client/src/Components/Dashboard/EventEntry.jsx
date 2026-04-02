@@ -4,6 +4,7 @@ import { formatDate } from "../../utils/time";
 
 function EventEntry(props) {
   const [isDone, toggleDone] = useState(false);
+  const isOverdue = props.due_date && new Date(props.due_date) < new Date();
 
   function ToggleCheckbox(event) {
     toggleDone(!isDone);
@@ -24,9 +25,7 @@ function EventEntry(props) {
         {isDone ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
       </button>
       <p>{props.content}</p>
-      <span className="due-date">
-        {formatDate(props.due_date)}
-      </span>
+      <span className={`due-date ${isOverdue ? "overdue" : ""}`}>{formatDate(props.due_date)}</span>
     </div>
   );
 }

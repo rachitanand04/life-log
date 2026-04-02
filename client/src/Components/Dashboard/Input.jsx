@@ -39,7 +39,7 @@ function Input(props) {
 
   return (
     <div className="input">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <input
           type="text"
           name="content"

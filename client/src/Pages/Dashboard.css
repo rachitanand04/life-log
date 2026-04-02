@@ -180,6 +180,10 @@
   font-size: 0.6rem;
 }
 
+.overdue {
+  color: #ff4d4d;
+}
+
 .input form {
   display: flex;
   justify-content: center;

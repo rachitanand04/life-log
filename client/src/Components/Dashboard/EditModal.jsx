@@ -39,7 +39,7 @@ function EditModal(props) {
           <IoMdClose />
         </button>
         <h3>Edit Log</h3>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <input
             type="text"
             name="content"
