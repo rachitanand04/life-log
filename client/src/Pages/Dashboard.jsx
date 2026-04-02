@@ -78,12 +78,16 @@ function Dashboard() {
       });
   }
 
-  async function openModal(id){
-    const entry = logs.find((log)=>{
+  function openModal(id) {
+    const entry = logs.find((log) => {
       return log.id === id;
-    })
+    });
     setEditing(true);
     setEditEntry(entry);
+  }
+
+  function closeModal() {
+    setEditing(false);
   }
 
   return (
@@ -93,14 +97,22 @@ function Dashboard() {
         <div className="log">
           <Input addEntry={addEntry} />
           {/* <DateSelector /> */}
-          <Log entries={logs} delete={deleteEntry} edit={openModal}/>
+          <Log entries={logs} delete={deleteEntry} edit={openModal} />
         </div>
         <div className="task-events">
-          <Tasks entries={logs} onStatusChangeEntry={addEntry} statusChange={changeStatus}/>
-          <Events entries={logs} onStatusChangeEntry={addEntry} statusChange={changeStatus}/>
+          <Tasks
+            entries={logs}
+            onStatusChangeEntry={addEntry}
+            statusChange={changeStatus}
+          />
+          <Events
+            entries={logs}
+            onStatusChangeEntry={addEntry}
+            statusChange={changeStatus}
+          />
         </div>
       </div>
-      {isEditing && <EditModal entry={editEntry}/>}
+      {isEditing && <EditModal entry={editEntry} close={closeModal} />}
     </div>
   );
 }

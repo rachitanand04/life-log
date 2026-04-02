@@ -254,6 +254,7 @@
 }
 
 .edit-window {
+  position: relative;
   justify-content: center;
   background-color: #c08552;
   padding: 2rem;
@@ -296,4 +297,20 @@
   border: 0;
   background-color: #8c5a3c;
   color: white;
+  cursor: pointer;
+}
+
+.edit-button:hover{
+  opacity: 0.9;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #4b2e2b;
 }
