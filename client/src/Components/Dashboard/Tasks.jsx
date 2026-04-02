@@ -1,5 +1,4 @@
 import TaskEntry from "./TaskEntry";
-import { v4 as uuidv4 } from "uuid";
 
 function Tasks(props) {
   function markComplete(entry, id) {
@@ -14,10 +13,16 @@ function Tasks(props) {
           .filter(
             (entry) => entry.type === "task" && entry.status === "pending",
           )
+          .sort((a, b) => {
+            if (!a.due_date) return 1;
+            if (!b.due_date) return -1;
+            return new Date(a.due_date) - new Date(b.due_date);
+          })
           .map((entry) => (
             <TaskEntry
               key={entry.id}
               id={entry.id}
+              due_date={entry.due_date}
               content={entry.content}
               complete={markComplete}
             />

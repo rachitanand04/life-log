@@ -142,6 +142,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 15rem;
+  overflow: scroll;
 }
 
 .task-entry,
@@ -172,6 +174,10 @@
   border: 0;
   padding: 0;
   font-size: 1.5rem;
+}
+
+.due-date{
+  font-size: 0.6rem;
 }
 
 .input form {
@@ -255,11 +261,21 @@
 
 .edit-window {
   position: relative;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   background-color: #c08552;
   padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.edit-window h3{
+  margin: 0;
+  margin-bottom: 1rem;
+  font-family: "Montserrat";
+  color: #4b2e2b;
 }
 
 .edit-window form {
@@ -270,6 +286,7 @@
 }
 
 .edit-window form input {
+  text-align: center;
   width: 30rem;
   height: 2rem;
   padding: 0 12px;
@@ -281,6 +298,8 @@
 .custom-datepicker-input {
   padding: 10px 14px;
   border-radius: 8px;
+  width: 100%;
+  max-width: 20rem;
   border: 1px solid #ccc;
   background-color: #4b2e2b;
   color: white;
@@ -314,3 +333,4 @@
   cursor: pointer;
   color: #4b2e2b;
 }
+

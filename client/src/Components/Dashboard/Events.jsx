@@ -14,10 +14,16 @@ function Events(props) {
           .filter(
             (entry) => entry.type === "event" && entry.status === "pending",
           )
+          .sort((a, b) => {
+            if (!a.due_date) return 1;
+            if (!b.due_date) return -1;
+            return new Date(a.due_date) - new Date(b.due_date);
+          })
           .map((entry) => (
             <EventEntry
               key={entry.id}
               id={entry.id}
+              due_date={entry.due_date}
               content={entry.content}
               complete={markComplete}
             />

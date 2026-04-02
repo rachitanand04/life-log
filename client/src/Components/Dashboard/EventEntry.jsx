@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import { formatDate } from "../../utils/time";
 
 function EventEntry(props) {
   const [isDone, toggleDone] = useState(false);
@@ -23,6 +24,9 @@ function EventEntry(props) {
         {isDone ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
       </button>
       <p>{props.content}</p>
+      <span className="due-date">
+        {formatDate(props.due_date)}
+      </span>
     </div>
   );
 }

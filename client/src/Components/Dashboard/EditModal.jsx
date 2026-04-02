@@ -1,11 +1,10 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { IoMdClose } from "react-icons/io";
+import { formatLocalDate } from "../../utils/time";
 
 function EditModal(props) {
-  const { id, content, type, status, due_date } =
-    props.entry;
-    console.log(due_date);
+  const { id, content, type, status, due_date } = props.entry;
   const parsedDate = due_date === null ? new Date() : new Date(due_date);
 
   const [newContent, setNewContent] = useState(content);
@@ -18,13 +17,18 @@ function EditModal(props) {
   }
 
   function handleSubmit(event) {
+    event.preventDefault();
+
     const updatedObject = {
       id: id,
       type: type,
       content: newContent,
-      date: type === "note" || status === "complete" ? null : startdate,
+      date:
+        type === "note" || status === "complete"
+          ? null
+          : formatLocalDate(startdate), // 👈 FIX HERE
     };
-    event.preventDefault();
+
     props.update(updatedObject);
   }
 
@@ -34,6 +38,7 @@ function EditModal(props) {
         <button className="close-button" onClick={props.close}>
           <IoMdClose />
         </button>
+        <h3>Edit Log</h3>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
