@@ -14,6 +14,7 @@ import {
   addEntryCall,
   deleteEntryCall,
   updateStatus,
+  updateEntry,
 } from "../API/dashboard";
 import { logout } from "../API/auth";
 
@@ -90,6 +91,27 @@ function Dashboard() {
     setEditing(false);
   }
 
+  async function updateLog(entry) {
+    updateEntry(entry)
+      .then(() => {
+        setLogs((prev) =>
+          prev.map((log) =>
+            log.id === entry.id
+              ? {
+                  ...log,
+                  content: entry.content,
+                  due_date: entry.date,
+                }
+              : log,
+          ),
+        );
+        closeModal();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <div className="dashboard">
       <Navbar user={user} logout={handleLogout} />
@@ -112,7 +134,9 @@ function Dashboard() {
           />
         </div>
       </div>
-      {isEditing && <EditModal entry={editEntry} close={closeModal} />}
+      {isEditing && (
+        <EditModal entry={editEntry} close={closeModal} update={updateLog} />
+      )}
     </div>
   );
 }

@@ -64,14 +64,14 @@ app.get("/logs", isAuthenticated, async (req, res) => {
 
 app.post("/logs", isAuthenticated, async (req, res) => {
   const email = req.user.email;
-  const { type, content, due_date, scheduled_time, status } = req.body;
+  const { type, content, due_date, status } = req.body;
 
   try {
     const result = await db.query(
-      `INSERT INTO logs (email, type, content, due_date, scheduled_time, status)
-       VALUES ($1, $2, $3, $4, $5, $6)
+      `INSERT INTO logs (email, type, content, due_date, status)
+       VALUES ($1, $2, $3, $4, $5)
        RETURNING *`,
-      [email, type, content, due_date, scheduled_time, status],
+      [email, type, content, due_date, status],
     );
 
     res.status(201).json(result.rows[0]);
@@ -120,6 +120,22 @@ app.patch("/status/:id", isAuthenticated, async (req, res) => {
     res.status(500).json({ message: "Error updating log" });
   }
 });
+
+app.put("/update", isAuthenticated, async (req,res)=>{
+  const {id, type, content, date} = req.body;
+  try{
+    const result = await db.query(
+      "UPDATE logs SET content = $1, due_date = $2 WHERE id = $3 RETURNING *",[content, date, id]
+    )
+    if(result.rows.length === 0){
+      return res.status(404).json({message: "Log not found"})
+    }
+
+    res.status(200).json({message: "Log updated"})
+  }catch(err){
+    res.status(500).json({message: "Error updating log"})
+  }
+})
 
 // Authentication
 app.get("/me", (req, res) => {

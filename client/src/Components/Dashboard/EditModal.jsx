@@ -3,10 +3,10 @@ import DatePicker from "react-datepicker";
 import { IoMdClose } from "react-icons/io";
 
 function EditModal(props) {
-  const { id, content, type, status, due_date, scheduled_date, time_created } =
+  const { id, content, type, status, due_date } =
     props.entry;
-  const rawDate = type === "task" ? due_date : scheduled_date;
-  const parsedDate = rawDate === null ? new Date() : new Date(rawDate);
+    console.log(due_date);
+  const parsedDate = due_date === null ? new Date() : new Date(due_date);
 
   const [newContent, setNewContent] = useState(content);
   const [startdate, setStartDate] = useState(parsedDate);
@@ -24,9 +24,8 @@ function EditModal(props) {
       content: newContent,
       date: type === "note" || status === "complete" ? null : startdate,
     };
-    console.log(updatedObject);
-    props.close();
     event.preventDefault();
+    props.update(updatedObject);
   }
 
   return (

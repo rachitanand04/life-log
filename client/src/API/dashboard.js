@@ -60,3 +60,19 @@ export async function updateStatus(id, newStatus) {
     throw new Error(data.message || "Error updating log");
   }
 }
+
+export async function updateEntry(entry){
+  const res = await fetch(`${baseURL}/update`,{
+    method: "PUT",
+    headers:{
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(entry)
+  });
+
+  if(!res.ok){
+    const data = await res.json();
+    throw new Error(data.message || "Error updating log");
+  }
+}
