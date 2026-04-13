@@ -1,6 +1,6 @@
 # Life Logger
 Aims to create a simple task and event tracker, getting rid of unnecessary clutter for those who just want to keep track of their events without filling out a bunch of extra fields.
-![Home Page](image.jpg)
+![Home Page](image.png)
 ## How to use?
 ### Pre-requisites
 - Node.js
